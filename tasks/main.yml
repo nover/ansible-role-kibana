@@ -1,0 +1,19 @@
+---
+- name: Add elasticsearch key
+  apt_key: url="https://packages.elastic.co/GPG-KEY-elasticsearch"
+
+- name: Add kibana apt repostitory
+  apt_repository: repo="deb http://packages.elastic.co/kibana/4.4/debian stable main" update_cache=yes
+  
+- name: Install kibana
+  apt: name={{ item }} state=present
+  with_items:
+    - kibana
+  
+- name: install kibana configuration file
+  template: src=kibana.yml.j2 dest=/opt/kibana/config/kibana.yml owner=kibana group=kibana mode=0644
+  notify: kibana_restart
+  
+- name: Update kibana rc.d settings
+  command: update-rc.d kibana defaults 96 9
+  notify: kibana_restart
