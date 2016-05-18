@@ -3,7 +3,7 @@ galaxy_info:
   description: Kibana role for Ubuntu servers
   company: SKARP ApS
  
- license: GitHub The Unlicense
+  license: GitHub The Unlicense
   
   min_ansible_version: 1.9
 
